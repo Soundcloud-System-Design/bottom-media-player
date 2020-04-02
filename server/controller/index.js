@@ -1,15 +1,30 @@
 var model = require("../model/index.js");
 
 const SongHandler = {
-  getSong: (req, res, next) => {
-    model.songs.getPlaylist(req.params.playlist_Id, data => {
+  addSong: (req, res, next) => {
+    console.log(req.body);
+    model.songs.createSong(req.body, data => {
       res.send(data);
     });
   },
-  addSong: (req, res, next) => {
-    console.log(req.body);
-    model.songs.addSong();
+  addSongToPlaylist: (req, res, next) => {
+    model.songs.addASong(req.body, data => {
+      res.send(data);
+    });
   }
 };
 
-module.exports = SongHandler;
+const PlaylistHandler = {
+  getPlaylist: (req, res, next) => {
+    model.playlist.getPlaylist(req.params.playlist_Id, data => {
+      res.send(data);
+    });
+  },
+  addNewPlaylist: (req, res, next) => {
+    model.playlist.createPlaylist(req.body, data => {
+      res.send(data);
+    });
+  }
+};
+
+module.exports = { SongHandler, PlaylistHandler };
