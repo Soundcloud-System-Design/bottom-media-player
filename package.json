@@ -10,8 +10,7 @@
     "build": "webpack --config webpack.config.js --watch",
     "test": "jest",
     "start": "nodemon server/app.js",
-    "db-create": "mysql -u root -p < server/database/music_schema.sql",
-    "db-start": "mysql -u root -p music < server/database/seed.sql"
+    "data-creation": "mysql -u root -p < server/database/music_schema.sql && mysql -u root -p music < server/database/seed.sql"
   },
   "jest": {
     "coverageReporters": [
@@ -40,6 +39,7 @@
     "babel-jest": "^25.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "hosted-git-info": "^3.0.4",
     "jquery": "^3.4.1",
     "mysql": "^2.18.1",

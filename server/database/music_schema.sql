@@ -1,8 +1,8 @@
-CREATE DATABASE music;
+CREATE DATABASE IF NOT EXISTS music;
 
 USE music;
 
-CREATE TABLE songList (
+CREATE TABLE IF NOT EXISTS songList (
   id INTEGER AUTO_INCREMENT,
   music_title VARCHAR(100) NOT NULL,
   artist_name VARCHAR(100) NOT NULL,
@@ -11,3 +11,15 @@ CREATE TABLE songList (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS playlists (
+  id INTEGER AUTO_INCREMENT,
+  playlist_title VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS playlist_songs (
+  id INTEGER AUTO_INCREMENT,
+  song_id INTEGER REFERENCES songList(id),
+  playlist_id INTEGER REFERENCES playlist(id),
+  PRIMARY KEY (id)
+);

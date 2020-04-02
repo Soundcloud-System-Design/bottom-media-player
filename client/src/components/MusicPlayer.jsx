@@ -1,31 +1,32 @@
 /* eslint-disable camelcase */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import HoverMenu from './HoverMenu.jsx';
-import ButtonPlay_Pause from '../styled_components/buttons/play_pause.js';
-import Button_Previous from '../styled_components/buttons/previous_button.js';
-import Button_Next from '../styled_components/buttons/next_button.js';
-import Button_Shuffle from '../styled_components/buttons/shuffle_button.js';
-import Button_Repeat from '../styled_components/buttons/repeat_button.js';
-import Button_PlayList from '../styled_components/buttons/playlist_button.js';
-import Button_Volume from '../styled_components/buttons/volume_button.js';
-import Music_Player from '../styled_components/container_style.js';
-import Progress_div from '../styled_components/progress_div.js';
-import Volume_Hover from '../styled_components/volume_hover.js';
-import Music_Info from '../styled_components/music_info.js';
-import Small_Start_Time from '../styled_components/start_time.js';
-import Small_End_Time from '../styled_components/end_time.js';
-import Volume_div from '../styled_components/volume_div.js';
-import Album_Div from '../styled_components/album_div.js';
+import React from "react";
+import ReactDOM from "react-dom";
+import $ from "jquery";
+import HoverMenu from "./HoverMenu.jsx";
+import ButtonPlay_Pause from "../styled_components/buttons/play_pause.js";
+import Button_Previous from "../styled_components/buttons/previous_button.js";
+import Button_Next from "../styled_components/buttons/next_button.js";
+import Button_Shuffle from "../styled_components/buttons/shuffle_button.js";
+import Button_Repeat from "../styled_components/buttons/repeat_button.js";
+import Button_PlayList from "../styled_components/buttons/playlist_button.js";
+import Button_Volume from "../styled_components/buttons/volume_button.js";
+import Music_Player from "../styled_components/container_style.js";
+import Progress_div from "../styled_components/progress_div.js";
+import Volume_Hover from "../styled_components/volume_hover.js";
+import Music_Info from "../styled_components/music_info.js";
+import Small_Start_Time from "../styled_components/start_time.js";
+import Small_End_Time from "../styled_components/end_time.js";
+import Volume_div from "../styled_components/volume_div.js";
+import Album_Div from "../styled_components/album_div.js";
 
 class MusicPlayerOnFooter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: '', // currently playing
+      selected: "", // currently playing
       playable: false, // set true/false based on loading of src
       playList: [],
+      playlistId: 1,
       paused: true, // change to false if i want to autoplay on load
       trackNumber: 0,
       displayList: false,
@@ -43,20 +44,23 @@ class MusicPlayerOnFooter extends React.Component {
   // create refs for audio/progress/start-time/end-times/vol-control
   componentDidMount() {
     $.ajax({
-      type: 'GET',
-      url: '/getList',
+      type: "GET",
+      url: `/getList/${this.state.playlistId}`,
       success: data => {
-        console.log(data);
-        this.setState({
-          playList: data,
-          selected: data[0].music_url
-        });
+        this.setState(
+          {
+            playList: data,
+            selected: data[0].music_url
+          },
+          () => {
+            console.log(this.state.playList);
+          }
+        );
       }
     });
   }
   //===============PREVIOUS BUTTON
   previous() {
-    console.log('clicked previous button');
     var trackNum;
     if (this.state.trackNumber === 0) {
       trackNum = this.state.playList.length - 1;
@@ -164,22 +168,22 @@ class MusicPlayerOnFooter extends React.Component {
     } else {
       seconds;
     }
-    var endTime = minutes + ':' + seconds;
+    var endTime = minutes + ":" + seconds;
 
     var currentHour = parseInt(currentTime / 3600) % 24,
       currentMinute = parseInt(currentTime / 60) % 60,
       currentSecond = currentTime % 60,
       current_SecondsFixed = currentSecond.toFixed(),
       current_Time =
-        (currentMinute < 10 ? '0' + currentMinute : currentMinute) +
-        ':' +
+        (currentMinute < 10 ? "0" + currentMinute : currentMinute) +
+        ":" +
         (current_SecondsFixed < 10
-          ? '0' + current_SecondsFixed
+          ? "0" + current_SecondsFixed
           : current_SecondsFixed);
 
-    var start = document.getElementById('start-time');
+    var start = document.getElementById("start-time");
     start.innerHTML = current_Time;
-    var end = document.getElementById('end-time');
+    var end = document.getElementById("end-time");
     end.innerHTML = endTime;
     this.setState({ seekValue: Math.floor((currentTime * 100) / length) });
   }
@@ -222,7 +226,7 @@ class MusicPlayerOnFooter extends React.Component {
             onTimeUpdate={this.timeUpdate.bind(this)}
           ></audio>
           <div id="previous-div">
-            {' '}
+            {" "}
             <Button_Previous
               className="previous-button"
               onClick={this.previous.bind(this)}
@@ -235,7 +239,7 @@ class MusicPlayerOnFooter extends React.Component {
             </Button_Previous>
           </div>
           <div id="play-pause-div">
-            {' '}
+            {" "}
             <ButtonPlay_Pause
               className="playPause-button"
               onClick={this.play_pause.bind(this)}
@@ -257,7 +261,7 @@ class MusicPlayerOnFooter extends React.Component {
           </div>
 
           <div id="next-div">
-            {' '}
+            {" "}
             <Button_Next className="next-button" onClick={this.next.bind(this)}>
               <img
                 src="https://image.flaticon.com/icons/svg/254/254428.svg"
@@ -268,7 +272,7 @@ class MusicPlayerOnFooter extends React.Component {
           </div>
 
           <div id="shuffle-div">
-            {' '}
+            {" "}
             <Button_Shuffle
               className="shuffle-button"
               onClick={this.shuffle.bind(this)}
@@ -298,7 +302,7 @@ class MusicPlayerOnFooter extends React.Component {
               src={
                 this.state.playList.length
                   ? this.state.playList[this.state.trackNumber].album_cover
-                  : ''
+                  : ""
               }
               width="27"
               height="27"
@@ -321,7 +325,7 @@ class MusicPlayerOnFooter extends React.Component {
           <div ref={this.volumeRef} id="volume-button">
             {this.state.displayVolume && (
               <Volume_div>
-                {' '}
+                {" "}
                 <Volume_Hover
                   ref={this.volumeControlRef}
                   type="range"
@@ -359,7 +363,7 @@ class MusicPlayerOnFooter extends React.Component {
               {this.state.playList[this.state.trackNumber].artist_name}
             </Music_Info>
           ) : (
-            ''
+            ""
           )}
           <div className="playlist-div">
             {this.state.displayList && (
