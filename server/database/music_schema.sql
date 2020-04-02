@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS songList (
   artist_name VARCHAR(100) NOT NULL,
   album_cover VARCHAR(250) NOT NULL,
   music_url VARCHAR(300) NOT NULL,
-  playlist_id INTEGER NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -16,4 +15,11 @@ CREATE TABLE IF NOT EXISTS playlists (
   id INTEGER AUTO_INCREMENT,
   playlist_title VARCHAR(100) NOT NULL,
   PRIMARY KEY (id)
-)
+);
+
+CREATE TABLE IF NOT EXISTS playlist_songs (
+  id INTEGER AUTO_INCREMENT,
+  song_id INTEGER REFERENCES songList(id),
+  playlist_id INTEGER REFERENCES playlist(id),
+  PRIMARY KEY (id)
+);

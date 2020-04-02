@@ -61,7 +61,6 @@ class MusicPlayerOnFooter extends React.Component {
   }
   //===============PREVIOUS BUTTON
   previous() {
-    console.log("clicked previous button");
     var trackNum;
     if (this.state.trackNumber === 0) {
       trackNum = this.state.playList.length - 1;

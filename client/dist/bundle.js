@@ -2654,7 +2654,6 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "previous",
     value: function previous() {
-      console.log("clicked previous button");
       var trackNum;
 
       if (this.state.trackNumber === 0) {

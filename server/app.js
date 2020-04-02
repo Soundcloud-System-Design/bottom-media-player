@@ -16,7 +16,9 @@ app.use(express.urlencoded({ extended: true }));
 // seting up s3 credentials
 
 app.get("/getList/:playlist_Id", SongHandler.getSong);
+// app.post("/addSong");
+// app.
 
 app.listen(port, function() {
-  console.log(`listening on port ${port}!`);
+  console.log(`listening on port http://localhost:${port}`);
 });
