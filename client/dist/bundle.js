@@ -2639,7 +2639,7 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
 
       __WEBPACK_IMPORTED_MODULE_7_jquery___default.a.ajax({
         type: "GET",
-        url: "/getList/".concat(this.state.playlistId),
+        url: "/getPlaylist/".concat(this.state.playlistId),
         success: function success(data) {
           _this2.setState({
             playList: data,

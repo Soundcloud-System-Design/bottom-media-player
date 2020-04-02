@@ -4,7 +4,7 @@ const port = 4000;
 var cors = require("cors");
 const db = require("./database/index.js");
 const path = require("path");
-const SongHandler = require("./controller/index");
+const { SongHandler, PlaylistHandler } = require("./controller/index");
 
 // console.log(__dirname);
 // any middlewares?
@@ -15,9 +15,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // seting up s3 credentials
 
-app.get("/getList/:playlist_Id", SongHandler.getSong);
-// app.post("/addSong");
-// app.
+app.get("/getPlaylist/:playlist_Id", PlaylistHandler.getPlaylist);
+
+app.post("/addSong", SongHandler.addSong);
+
+app.post("/addPlaylist", PlaylistHandler.addNewPlaylist);
+
+app.post("/addSongToPlaylist", SongHandler.addSongToPlaylist);
 
 app.listen(port, function() {
   console.log(`listening on port http://localhost:${port}`);
