@@ -1,8 +1,9 @@
-const mysql = require("mysql");
+const mysql = require('mysql');
 
 var dbConnection = mysql.createConnection({
-  user: "root",
-  database: "music"
+  user: 'root',
+  password: 'password',
+  database: 'music'
 });
 
 dbConnection.connect();
