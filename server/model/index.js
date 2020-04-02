@@ -1,8 +1,8 @@
-var db = require('../database');
+var db = require("../database");
 module.exports = {
   songs: {
-    getPlaylist: callback => {
-      var queryString = 'select * from songList';
+    getPlaylist: (id, callback) => {
+      var queryString = `select * from songList where playlist_id = ${id}`;
       // randomize the sqlChart.
       return db.query(queryString, function(err, results) {
         console.log(results);

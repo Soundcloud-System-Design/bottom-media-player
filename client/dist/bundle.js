@@ -2608,11 +2608,12 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      selected: '',
+      selected: "",
       // currently playing
       playable: false,
       // set true/false based on loading of src
       playList: [],
+      playlistId: 1,
       paused: true,
       // change to false if i want to autoplay on load
       trackNumber: 0,
@@ -2637,14 +2638,14 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       __WEBPACK_IMPORTED_MODULE_7_jquery___default.a.ajax({
-        type: 'GET',
-        url: '/getList',
+        type: "GET",
+        url: "/getList/".concat(this.state.playlistId),
         success: function success(data) {
-          console.log(data);
-
           _this2.setState({
             playList: data,
             selected: data[0].music_url
+          }, function () {
+            console.log(_this2.state.playList);
           });
         }
       });
@@ -2653,7 +2654,7 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "previous",
     value: function previous() {
-      console.log('clicked previous button');
+      console.log("clicked previous button");
       var trackNum;
 
       if (this.state.trackNumber === 0) {
@@ -2786,15 +2787,15 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
         seconds;
       }
 
-      var endTime = minutes + ':' + seconds;
+      var endTime = minutes + ":" + seconds;
       var currentHour = parseInt(currentTime / 3600) % 24,
           currentMinute = parseInt(currentTime / 60) % 60,
           currentSecond = currentTime % 60,
           current_SecondsFixed = currentSecond.toFixed(),
-          current_Time = (currentMinute < 10 ? '0' + currentMinute : currentMinute) + ':' + (current_SecondsFixed < 10 ? '0' + current_SecondsFixed : current_SecondsFixed);
-      var start = document.getElementById('start-time');
+          current_Time = (currentMinute < 10 ? "0" + currentMinute : currentMinute) + ":" + (current_SecondsFixed < 10 ? "0" + current_SecondsFixed : current_SecondsFixed);
+      var start = document.getElementById("start-time");
       start.innerHTML = current_Time;
-      var end = document.getElementById('end-time');
+      var end = document.getElementById("end-time");
       end.innerHTML = endTime;
       this.setState({
         seekValue: Math.floor(currentTime * 100 / length)
@@ -2848,7 +2849,7 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
         onTimeUpdate: this.timeUpdate.bind(this)
       }), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("div", {
         id: "previous-div"
-      }, ' ', /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__styled_components_buttons_previous_button_js__["a" /* default */], {
+      }, " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__styled_components_buttons_previous_button_js__["a" /* default */], {
         className: "previous-button",
         onClick: this.previous.bind(this)
       }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("img", {
@@ -2857,7 +2858,7 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
         height: "30%"
       }))), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("div", {
         id: "play-pause-div"
-      }, ' ', /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__styled_components_buttons_play_pause_js__["a" /* default */], {
+      }, " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__styled_components_buttons_play_pause_js__["a" /* default */], {
         className: "playPause-button",
         onClick: this.play_pause.bind(this)
       }, this.state.paused ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("img", {
@@ -2870,7 +2871,7 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
         height: "30%"
       }))), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("div", {
         id: "next-div"
-      }, ' ', /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_11__styled_components_buttons_next_button_js__["a" /* default */], {
+      }, " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_11__styled_components_buttons_next_button_js__["a" /* default */], {
         className: "next-button",
         onClick: this.next.bind(this)
       }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("img", {
@@ -2879,7 +2880,7 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
         height: "30%"
       }))), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("div", {
         id: "shuffle-div"
-      }, ' ', /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_12__styled_components_buttons_shuffle_button_js__["a" /* default */], {
+      }, " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_12__styled_components_buttons_shuffle_button_js__["a" /* default */], {
         className: "shuffle-button",
         onClick: this.shuffle.bind(this)
       }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("img", {
@@ -2899,7 +2900,7 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
         id: "album-cover"
       }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("img", {
         id: "queen-image",
-        src: this.state.playList.length ? this.state.playList[this.state.trackNumber].album_cover : '',
+        src: this.state.playList.length ? this.state.playList[this.state.trackNumber].album_cover : "",
         width: "27",
         height: "27"
       })), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_20__styled_components_start_time_js__["a" /* default */], {
@@ -2916,7 +2917,7 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("div", {
         ref: this.volumeRef,
         id: "volume-button"
-      }, this.state.displayVolume && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_22__styled_components_volume_div_js__["a" /* default */], null, ' ', /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_18__styled_components_volume_hover_js__["a" /* default */], {
+      }, this.state.displayVolume && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_22__styled_components_volume_div_js__["a" /* default */], null, " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_18__styled_components_volume_hover_js__["a" /* default */], {
         ref: this.volumeControlRef,
         type: "range",
         min: "0",
@@ -2937,7 +2938,7 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
         height: "30%"
       }))), this.state.playList.length ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_19__styled_components_music_info_js__["a" /* default */], {
         id: "music-info"
-      }, this.state.playList[this.state.trackNumber].music_title, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("small", null, " by "), this.state.playList[this.state.trackNumber].artist_name) : '', /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("div", {
+      }, this.state.playList[this.state.trackNumber].music_title, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("small", null, " by "), this.state.playList[this.state.trackNumber].artist_name) : "", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("div", {
         className: "playlist-div"
       }, this.state.displayList && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__HoverMenu_jsx__["a" /* default */], {
         playList: this.state.playList,

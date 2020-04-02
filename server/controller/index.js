@@ -2,10 +2,9 @@ var model = require("../model/index.js");
 
 const SongHandler = {
   getSong: (req, res, next) => {
-    model.songs.getPlaylist(data => {
-      // console.log(data);
+    console.log(req.params);
+    model.songs.getPlaylist(req.params.playlist_Id, data => {
       res.send(data);
-      // console.log(JSON.stringify(data));
     });
   }
 };
