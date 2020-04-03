@@ -1,14 +1,19 @@
-var model = require("../model/index.js");
+var model = require("../model/mySQLindex.js");
 
 const SongHandler = {
   addSong: (req, res, next) => {
-    console.log(req.body);
     model.songs.createSong(req.body, data => {
       res.send(data);
     });
   },
   addSongToPlaylist: (req, res, next) => {
     model.songs.addASong(req.body, data => {
+      res.send(data);
+    });
+  },
+  deleteASong: (req, res, next) => {
+    console.log(req.body);
+    model.songs.deleteSong(req.body, data => {
       res.send(data);
     });
   }
@@ -22,6 +27,16 @@ const PlaylistHandler = {
   },
   addNewPlaylist: (req, res, next) => {
     model.playlist.createPlaylist(req.body, data => {
+      res.send(data);
+    });
+  },
+  updatePlaylistName: (req, res, next) => {
+    model.playlist.changePlaylistName(req.body, data => {
+      res.send(data);
+    });
+  },
+  deleteSongFromPlaylist: (req, res, next) => {
+    model.playlist.deleteASong(req.body, data => {
       res.send(data);
     });
   }

@@ -23,6 +23,12 @@ app.post("/addPlaylist", PlaylistHandler.addNewPlaylist);
 
 app.post("/addSongToPlaylist", SongHandler.addSongToPlaylist);
 
+app.put("/changePlaylistName", PlaylistHandler.updatePlaylistName);
+
+app.delete("/deleteASong", SongHandler.deleteASong);
+
+app.delete("/deleteSongFromPlaylist", PlaylistHandler.deleteSongFromPlaylist);
+
 app.listen(port, function() {
   console.log(`listening on port http://localhost:${port}`);
 });

@@ -21,6 +21,17 @@ module.exports = {
         }
         callback(results);
       });
+    },
+    deleteSong: (songInfo, callback) => {
+      console.log(songInfo);
+      const { id } = songInfo;
+      const queryString = `DELETE FROM songList WHERE id=${id}`;
+      return db.query(queryString, (err, results) => {
+        if (err) {
+          throw err;
+        }
+        callback(results);
+      });
     }
   },
   playlist: {
@@ -41,6 +52,27 @@ module.exports = {
         if (err) {
           throw err;
         }
+        callback(results);
+      });
+    },
+    changePlaylistName: (playlistInfo, callback) => {
+      const { playlistId, playlistName } = playlistInfo;
+      const queryString = `UPDATE playlists SET playlist_title = "${playlistName}" WHERE id = ${playlistId}`;
+      return db.query(queryString, (err, results) => {
+        if (err) {
+          throw err;
+        }
+        callback(results);
+      });
+    },
+    deleteASong: (songInfo, callback) => {
+      const { songId, playlistId } = songInfo;
+      const queryString = `DELETE FROM playlist_songs WHERE song_id=${songId} AND playlist_id=${playlistId}`;
+      return db.query(queryString, (err, results) => {
+        if (err) {
+          throw err;
+        }
+        console.log(results);
         callback(results);
       });
     }
