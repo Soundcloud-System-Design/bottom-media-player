@@ -16,6 +16,11 @@ const SongHandler = {
     model.songs.deleteSong(req.body, data => {
       res.send(data);
     });
+  },
+  getSongByName: (req, res, next) => {
+    model.songs.getSongs(req.body.songQuery, data => {
+      res.send(data);
+    });
   }
 };
 

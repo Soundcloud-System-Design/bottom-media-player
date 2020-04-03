@@ -17,6 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/getPlaylist/:playlist_Id", PlaylistHandler.getPlaylist);
 
+app.get("/getSongQuery", SongHandler.getSongByName);
+
 app.post("/addSong", SongHandler.addSong);
 
 app.post("/addPlaylist", PlaylistHandler.addNewPlaylist);

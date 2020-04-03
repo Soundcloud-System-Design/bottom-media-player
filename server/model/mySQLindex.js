@@ -32,6 +32,15 @@ module.exports = {
         }
         callback(results);
       });
+    },
+    getSongs: (songName, callback) => {
+      const queryString = `SELECT * FROM songList WHERE music_title LIKE '%${songName}%'`;
+      return db.query(queryString, (err, results) => {
+        if (err) {
+          throw err;
+        }
+        callback(results);
+      });
     }
   },
   playlist: {
