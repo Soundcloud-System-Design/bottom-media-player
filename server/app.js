@@ -15,9 +15,15 @@ app.use(express.urlencoded({ extended: true }));
 
 // seting up s3 credentials
 
+// =================== GET REQUESTS
+
 app.get("/getPlaylist/:playlist_Id", PlaylistHandler.getPlaylist);
 
 app.get("/getSongQuery", SongHandler.getSongByName);
+
+app.get("/getArtistSongs", SongHandler.getSongByArtist);
+
+// ==================== POST REQUESTS
 
 app.post("/addSong", SongHandler.addSong);
 
@@ -25,7 +31,13 @@ app.post("/addPlaylist", PlaylistHandler.addNewPlaylist);
 
 app.post("/addSongToPlaylist", SongHandler.addSongToPlaylist);
 
+// ===================== PUT/UPDATE REQUESTS
+
 app.put("/changePlaylistName", PlaylistHandler.updatePlaylistName);
+
+app.put("/changeSongInfo/:songId", SongHandler.updateSongInfo);
+
+// ===================== DELETE REQUESTS
 
 app.delete("/deleteASong", SongHandler.deleteASong);
 

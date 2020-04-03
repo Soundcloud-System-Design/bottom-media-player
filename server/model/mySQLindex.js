@@ -41,8 +41,28 @@ module.exports = {
         }
         callback(results);
       });
+    },
+    getSongByArtist: (artistQuery, callback) => {
+      const queryString = `SELECT DISTINCT artist_name FROM songList WHERE artist_name LIKE '%${artistQuery}%' LIMIT 10`;
+      return db.query(queryString, (err, results) => {
+        if (err) {
+          throw err;
+        }
+        callback(results);
+      });
+    },
+    changeSongInfo: (songInfo, songId, callback) => {
+      const { musicTitle, artistName, albumCover, musicUrl } = songInfo;
+      const queryString = `UPDATE songList SET music_title='${musicTitle}', artist_name='${artistName}', album_cover='${albumCover}', music_url='${musicUrl}' WHERE id=${songId}`;
+      return db.query(queryString, (err, results) => {
+        if (err) {
+          throw err;
+        }
+        callback(results);
+      });
     }
   },
+
   playlist: {
     createPlaylist: (playlistData, callback) => {
       const { playlistTitle } = playlistData;

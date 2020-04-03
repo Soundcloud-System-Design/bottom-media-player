@@ -21,6 +21,17 @@ const SongHandler = {
     model.songs.getSongs(req.body.songQuery, data => {
       res.send(data);
     });
+  },
+  getSongByArtist: (req, res, next) => {
+    model.songs.getSongByArtist(req.body.artistQuery, data => {
+      console.log(data);
+      res.send(data);
+    });
+  },
+  updateSongInfo: (req, res, next) => {
+    model.songs.changeSongInfo(req.body, req.params.songId, data => {
+      res.send(data);
+    });
   }
 };
 
