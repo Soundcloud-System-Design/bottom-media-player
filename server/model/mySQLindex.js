@@ -51,6 +51,10 @@ module.exports = {
         callback(results);
       });
     },
+    getSongById: (songId, callback) => {
+      const query = "";
+      // work in progress ================================<
+    }
     changeSongInfo: (songInfo, songId, callback) => {
       const { musicTitle, artistName, albumCover, musicUrl } = songInfo;
       const queryString = `UPDATE songList SET music_title='${musicTitle}', artist_name='${artistName}', album_cover='${albumCover}', music_url='${musicUrl}' WHERE id=${songId}`;

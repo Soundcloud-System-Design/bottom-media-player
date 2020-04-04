@@ -17,16 +17,21 @@ const SongHandler = {
       res.send(data);
     });
   },
-  getSongByName: (req, res, next) => {
+  getSongsByName: (req, res, next) => {
     model.songs.getSongs(req.body.songQuery, data => {
       res.send(data);
     });
   },
-  getSongByArtist: (req, res, next) => {
+  getSongsByArtist: (req, res, next) => {
     model.songs.getSongByArtist(req.body.artistQuery, data => {
       console.log(data);
       res.send(data);
     });
+  },
+  getSongById: (req, res, next) => {
+    model.songs.getSongById(req.params.song_id, data => {
+      res.send(data)
+    })
   },
   updateSongInfo: (req, res, next) => {
     model.songs.changeSongInfo(req.body, req.params.songId, data => {

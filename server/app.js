@@ -19,9 +19,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/getPlaylist/:playlist_Id", PlaylistHandler.getPlaylist);
 
-app.get("/getSongQuery", SongHandler.getSongByName);
+app.get("/getSong/:song_id", SongHandler.getSongById);
 
-app.get("/getArtistSongs", SongHandler.getSongByArtist);
+app.get("/getSongQuery", SongHandler.getSongsByName);
+
+app.get("/getArtistSongs", SongHandler.getSongsByArtist);
 
 // ==================== POST REQUESTS
 
