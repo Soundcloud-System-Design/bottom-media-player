@@ -64,4 +64,12 @@ pool
     return pool.query(
       "COPY playlist_songs (playlist_id, song_id) FROM '/Users/andrea/Desktop/bottom-media-player/server/database/postgres/generetedSongsAndPlaylists.csv' DELIMITER ',' CSV HEADER"
     );
+  })
+  .then((result) => {
+    console.log(result);
+    pool.end();
+    return;
+  })
+  .catch((err) => {
+    console.log(err, "error here");
   });

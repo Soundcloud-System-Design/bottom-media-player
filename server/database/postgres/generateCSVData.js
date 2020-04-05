@@ -174,7 +174,7 @@ writeSongsAndArtists.write("songId, artistId\n", "utf-8");
 
 const writeSongsArtistsRelations = (writer, encoding, callback) => {
   // let i = 1000000; // 10 mill records
-  let i = 5000;
+  let i = 1000000;
   write();
   function write() {
     let ok = true;
@@ -182,8 +182,8 @@ const writeSongsArtistsRelations = (writer, encoding, callback) => {
       i -= 1;
       // const songId = fake.random.number({ min: 1, max: 10000000 });
       // const artistId = fake.random.number({ min: 1, max: 10000000 });
-      const songId = fake.random.number({ min: 1, max: 10000 });
-      const artistId = fake.random.number({ min: 1, max: 10000 });
+      const songId = fake.random.number({ min: 1, max: 10000000 });
+      const artistId = fake.random.number({ min: 1, max: 10000000 });
       const data = `${songId}, ${artistId}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
@@ -212,7 +212,7 @@ writeSongsAndPlaylists.write("playlist_id, song_id\n", "utf-8");
 
 const writeSongsAndPlaylistsRelations = (writer, encoding, callback) => {
   // let i = 500000;
-  let i = 5000;
+  let i = 10000000;
   write();
   function write() {
     let ok = true;
@@ -220,8 +220,8 @@ const writeSongsAndPlaylistsRelations = (writer, encoding, callback) => {
       i -= 1;
       // const playlistId = fake.random.number({ min: 1, max: 500000 });
       // const songId = fake.random.number({ min: 1, max: 500000 });
-      const playlistId = fake.random.number({ min: 1, max: 10000 });
-      const songId = fake.random.number({ min: 1, max: 10000 });
+      const playlistId = fake.random.number({ min: 450000, max: 500000 });
+      const songId = fake.random.number({ min: 1, max: 500000 });
       const data = `${playlistId}, ${songId}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
