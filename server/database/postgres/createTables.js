@@ -318,7 +318,7 @@ pool.query(
                   throw err;
                 }
                 pool.query(
-                  "CREATE TABLE playlist_songs (id serial primary key, playlist_id integer references playlists(id), song_id integer references songs(id), artist_id integer references artists(id))",
+                  "CREATE TABLE playlist_songs (id serial primary key, playlist_id integer references playlists(id), song_id integer references songs(id))",
                   (err, res) => {
                     if (err) {
                       throw err;

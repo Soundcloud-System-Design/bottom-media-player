@@ -66,7 +66,8 @@ let musicUrlLists = [
 ];
 
 const writeTenMillionSongs = (writer, encoding, callback) => {
-  let i = 1000;
+  let i = 10000000;
+  // let i = 1000;
   write();
   function write() {
     let ok = true;
@@ -99,10 +100,11 @@ let writePlaylists = fs.createWriteStream(
   path.join(__dirname, "./generatedPlaylists.csv")
 );
 
-writePlaylists.write("playlist_title\n", "utf8");
+writePlaylists.write("playlistTitle\n", "utf8");
 
-const writeFiftyThousandPlaylists = (writer, encoding, callback) => {
-  let i = 500;
+const writeFiveHundreThousandPlaylists = (writer, encoding, callback) => {
+  let i = 500000;
+  // let i = 1000;
   write();
   function write() {
     let ok = true;
@@ -123,7 +125,7 @@ const writeFiftyThousandPlaylists = (writer, encoding, callback) => {
   write();
 };
 
-writeFiftyThousandPlaylists(writePlaylists, "utf-8", () => {
+writeFiveHundreThousandPlaylists(writePlaylists, "utf-8", () => {
   writePlaylists.end();
 });
 
@@ -133,17 +135,18 @@ let writeArtists = fs.createWriteStream(
   path.join(__dirname, "./generatedArtists.csv")
 );
 
-writePlaylists.write("playlist_title\n", "utf8");
+writePlaylists.write("artistName\n", "utf-8");
 
 const writeAllAritsts = (writer, encoding, callback) => {
-  let i = 500;
+  let i = 10000000;
+  // let i = 1000;
   write();
   function write() {
     let ok = true;
     do {
       i -= 1;
-      const playlistListTitle = fake.lorem.words();
-      const data = `${playlistListTitle}\n`;
+      const artistName = fake.lorem.words();
+      const data = `${artistName}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {
@@ -157,6 +160,82 @@ const writeAllAritsts = (writer, encoding, callback) => {
   write();
 };
 
-writeFiftyThousandPlaylists(writePlaylists, "utf-8", () => {
-  writePlaylists.end();
+writeAllAritsts(writeArtists, "utf-8", () => {
+  writeArtists.end();
+});
+
+// songs and artists join table data =====================
+
+let writeSongsAndArtists = fs.createWriteStream(
+  path.join(__dirname, "./generatedSongsAndArtists.csv")
+);
+
+writeSongsAndArtists.write("songId, artistId\n", "utf-8");
+
+const writeSongsArtistsRelations = (writer, encoding, callback) => {
+  // let i = 1000000; // 10 mill records
+  let i = 5000;
+  write();
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+      // const songId = fake.random.number({ min: 1, max: 10000000 });
+      // const artistId = fake.random.number({ min: 1, max: 10000000 });
+      const songId = fake.random.number({ min: 1, max: 10000 });
+      const artistId = fake.random.number({ min: 1, max: 10000 });
+      const data = `${songId}, ${artistId}\n`;
+      if (i === 0) {
+        writer.write(data, encoding, callback);
+      } else {
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once("drain", write);
+    }
+  }
+  write();
+};
+
+writeSongsArtistsRelations(writeSongsAndArtists, "utf-8", () => {
+  writeSongsAndArtists.end();
+});
+
+// songs and playlists join table data =====================
+
+let writeSongsAndPlaylists = fs.createWriteStream(
+  path.join(__dirname, "./generetedSongsAndPlaylists.csv")
+);
+
+writeSongsAndPlaylists.write("playlist_id, song_id\n", "utf-8");
+
+const writeSongsAndPlaylistsRelations = (writer, encoding, callback) => {
+  // let i = 500000;
+  let i = 5000;
+  write();
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+      // const playlistId = fake.random.number({ min: 1, max: 500000 });
+      // const songId = fake.random.number({ min: 1, max: 500000 });
+      const playlistId = fake.random.number({ min: 1, max: 10000 });
+      const songId = fake.random.number({ min: 1, max: 10000 });
+      const data = `${playlistId}, ${songId}\n`;
+      if (i === 0) {
+        writer.write(data, encoding, callback);
+      } else {
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once("drain", write);
+    }
+  }
+  write();
+};
+
+writeSongsAndPlaylistsRelations(writeSongsAndPlaylists, "utf-8", () => {
+  writeSongsAndPlaylists.end();
 });
