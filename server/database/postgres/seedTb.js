@@ -32,7 +32,7 @@ const pool = require("./dbconnect.js");
 
 pool
   .query(
-    "COPY songs (music_title, music_url, cover_art) FROM '/Users/andrea/Desktop/bottom-media-player/server/database/postgres/generatedSongs.csv' DELIMITER ',' CSV HEADER"
+    "COPY artists (artist_name) FROM '/Users/andrea/Desktop/bottom-media-player/server/database/postgres/generatedArtists.csv' DELIMITER ',' CSV HEADER"
   )
   .then(() => {
     console.log("playlists now");
@@ -41,18 +41,11 @@ pool
     );
   })
   .then(() => {
-    console.log("artists now");
+    console.log("songs now");
     return pool.query(
-      "COPY artists (artist_name) FROM '/Users/andrea/Desktop/bottom-media-player/server/database/postgres/generatedArtists.csv' DELIMITER ',' CSV HEADER"
+      "COPY songs (music_title, music_url, cover_art, artist_id) FROM '/Users/andrea/Desktop/bottom-media-player/server/database/postgres/generatedSongs.csv' DELIMITER ',' CSV HEADER"
     );
   })
-  // .then(() => {
-  //   return pool.end();
-  // })
-  // .catch((err) => {
-  //   console.log("error seedtb.js");
-  //   pool.end();
-  // });
   .then(() => {
     console.log("songs and artists now");
     return pool.query(

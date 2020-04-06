@@ -9,7 +9,7 @@ let writeSongs = fs.createWriteStream(
   path.join(__dirname, "./generatedSongs.csv")
 );
 
-writeSongs.write("musicTitle, musicUrl, coverArt\n", "utf8");
+writeSongs.write("musicTitle, musicUrl, coverArt, artistId\n", "utf8");
 
 let musicUrlLists = [
   "https://project-music.s3-us-west-1.amazonaws.com/music+folder/29.)+The+Leaning+Tower+of+Pepperoni+Pizza+Pie.mp3",
@@ -66,17 +66,24 @@ let musicUrlLists = [
 ];
 
 const writeTenMillionSongs = (writer, encoding, callback) => {
-  let i = 10000000;
+  let i = 1000;
+  let songId = 0;
   // let i = 1000;
   write();
   function write() {
     let ok = true;
     do {
       i -= 1;
-      const musicUrl = musicUrlLists[fake.random.number({ min: 0, max: 50 })];
+      if (songId === 51) {
+        songId = 0;
+      } else {
+        songId += 1;
+      }
+      const musicUrl = musicUrlLists[songId];
       const musicCoverArt = fake.image.image();
       const musicTitle = fake.lorem.words();
-      const data = `${musicTitle}, ${musicUrl}, ${musicCoverArt}\n`;
+      const artistId = fake.random.number({ min: 1, max: 5000000 });
+      const data = `${musicTitle}, ${musicUrl}, ${musicCoverArt}, ${artistId}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {
@@ -103,7 +110,7 @@ let writePlaylists = fs.createWriteStream(
 writePlaylists.write("playlistTitle\n", "utf8");
 
 const writeFiveHundreThousandPlaylists = (writer, encoding, callback) => {
-  let i = 500000;
+  let i = 5000000;
   // let i = 1000;
   write();
   function write() {
@@ -138,7 +145,7 @@ let writeArtists = fs.createWriteStream(
 writePlaylists.write("artistName\n", "utf-8");
 
 const writeAllAritsts = (writer, encoding, callback) => {
-  let i = 10000000;
+  let i = 5000000;
   // let i = 1000;
   write();
   function write() {
@@ -174,7 +181,7 @@ writeSongsAndArtists.write("songId, artistId\n", "utf-8");
 
 const writeSongsArtistsRelations = (writer, encoding, callback) => {
   // let i = 1000000; // 10 mill records
-  let i = 1000000;
+  let i = 5000000;
   write();
   function write() {
     let ok = true;
@@ -182,8 +189,8 @@ const writeSongsArtistsRelations = (writer, encoding, callback) => {
       i -= 1;
       // const songId = fake.random.number({ min: 1, max: 10000000 });
       // const artistId = fake.random.number({ min: 1, max: 10000000 });
-      const songId = fake.random.number({ min: 1, max: 10000000 });
-      const artistId = fake.random.number({ min: 1, max: 10000000 });
+      const songId = fake.random.number({ min: 1, max: 1000 });
+      const artistId = fake.random.number({ min: 1, max: 5000000 });
       const data = `${songId}, ${artistId}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
@@ -212,7 +219,7 @@ writeSongsAndPlaylists.write("playlist_id, song_id\n", "utf-8");
 
 const writeSongsAndPlaylistsRelations = (writer, encoding, callback) => {
   // let i = 500000;
-  let i = 10000000;
+  let i = 5000000;
   write();
   function write() {
     let ok = true;
@@ -221,7 +228,7 @@ const writeSongsAndPlaylistsRelations = (writer, encoding, callback) => {
       // const playlistId = fake.random.number({ min: 1, max: 500000 });
       // const songId = fake.random.number({ min: 1, max: 500000 });
       const playlistId = fake.random.number({ min: 450000, max: 500000 });
-      const songId = fake.random.number({ min: 1, max: 500000 });
+      const songId = fake.random.number({ min: 1, max: 1000 });
       const data = `${playlistId}, ${songId}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
