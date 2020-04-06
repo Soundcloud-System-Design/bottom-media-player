@@ -51,6 +51,10 @@ module.exports = {
         callback(results);
       });
     },
+    getSongById: (songId, callback) => {
+      const query = "";
+      // work in progress ================================<
+    }
     changeSongInfo: (songInfo, songId, callback) => {
       const { musicTitle, artistName, albumCover, musicUrl } = songInfo;
       const queryString = `UPDATE songList SET music_title='${musicTitle}', artist_name='${artistName}', album_cover='${albumCover}', music_url='${musicUrl}' WHERE id=${songId}`;
@@ -75,7 +79,8 @@ module.exports = {
       });
     },
     getPlaylist: (id, callback) => {
-      var queryString = `SELECT * FROM songList LEFT JOIN playlist_songs ON songList.id = playlist_songs.song_id WHERE playlist_songs.playlist_id = ${id}`;
+      // var queryString = `SELECT * FROM songList LEFT JOIN playlist_songs ON songList.id = playlist_songs.song_id WHERE playlist_songs.playlist_id = ${id}`;
+      var queryString = `SELECT * FROM songs LEFT JOIN playlist_songs ON songs.id = playlist_songs.song_id WHERE playlist_songs.playlist_id = ${id}`;
       // randomize the sqlChart.
       return db.query(queryString, function(err, results) {
         if (err) {
