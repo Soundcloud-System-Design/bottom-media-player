@@ -18,6 +18,7 @@ import Small_Start_Time from "../styled_components/start_time.js";
 import Small_End_Time from "../styled_components/end_time.js";
 import Volume_div from "../styled_components/volume_div.js";
 import Album_Div from "../styled_components/album_div.js";
+import axios from "axios";
 
 class MusicPlayerOnFooter extends React.Component {
   constructor(props) {
@@ -43,15 +44,12 @@ class MusicPlayerOnFooter extends React.Component {
   }
   // create refs for audio/progress/start-time/end-times/vol-control
   componentDidMount() {
-    $.ajax({
-      type: "GET",
-      url: `/getPlaylist/${this.state.playlistId}`,
-      success: (data) => {
-        this.setState({
-          playList: data.rows,
-          selected: data.rows[0].music_url,
-        });
-      },
+    axios.get(`/getPlaylist/${this.state.playlistId}`).then((results) => {
+      console.log(results.data.rows);
+      this.setState({
+        playList: results.data.rows,
+        selected: results.data.rows[0].music_url,
+      });
     });
   }
   //===============PREVIOUS BUTTON
