@@ -18,6 +18,7 @@ import Small_Start_Time from "../styled_components/start_time.js";
 import Small_End_Time from "../styled_components/end_time.js";
 import Volume_div from "../styled_components/volume_div.js";
 import Album_Div from "../styled_components/album_div.js";
+import axios from "axios";
 
 class MusicPlayerOnFooter extends React.Component {
   constructor(props) {
@@ -26,14 +27,14 @@ class MusicPlayerOnFooter extends React.Component {
       selected: "", // currently playing
       playable: false, // set true/false based on loading of src
       playList: [],
-      playlistId: 1,
+      playlistId: 450001,
       paused: true, // change to false if i want to autoplay on load
       trackNumber: 0,
       displayList: false,
       displayVolume: false,
       seekValue: 0,
       muted: true,
-      volume: 0.5
+      volume: 0.5,
     };
     this.audioRef = React.createRef();
     this.progressRef = React.createRef();
@@ -43,20 +44,12 @@ class MusicPlayerOnFooter extends React.Component {
   }
   // create refs for audio/progress/start-time/end-times/vol-control
   componentDidMount() {
-    $.ajax({
-      type: "GET",
-      url: `/getPlaylist/${this.state.playlistId}`,
-      success: data => {
-        this.setState(
-          {
-            playList: data,
-            selected: data[0].music_url
-          },
-          () => {
-            console.log(this.state.playList);
-          }
-        );
-      }
+    axios.get(`/getPlaylist/${this.state.playlistId}`).then((results) => {
+      console.log(results.data.rows);
+      this.setState({
+        playList: results.data.rows,
+        selected: results.data.rows[0].music_url,
+      });
     });
   }
   //===============PREVIOUS BUTTON
@@ -93,7 +86,7 @@ class MusicPlayerOnFooter extends React.Component {
     this.setState({
       selected: src,
       playable: false,
-      trackNumber: trackNum
+      trackNumber: trackNum,
     });
   }
   //=================EventHandler
@@ -135,7 +128,7 @@ class MusicPlayerOnFooter extends React.Component {
       this.state.playList[this.state.trackNumber].music_url
     );
     this.setState({
-      playList: shuffle
+      playList: shuffle,
     });
     return this.audioRef.current.paused
       ? this.audioRef.current.play()
@@ -301,7 +294,7 @@ class MusicPlayerOnFooter extends React.Component {
               id="queen-image"
               src={
                 this.state.playList.length
-                  ? this.state.playList[this.state.trackNumber].album_cover
+                  ? this.state.playList[this.state.trackNumber].cover_art
                   : ""
               }
               width="27"

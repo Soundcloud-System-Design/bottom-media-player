@@ -1,10 +1,12 @@
+require("newrelic");
 const express = require("express");
 const app = express();
 const port = 4000;
 var cors = require("cors");
-const db = require("./database/index.js");
+const db = require("./database/postgres/dbconnect.js");
 const path = require("path");
 const { SongHandler, PlaylistHandler } = require("./controller/index");
+const model = require("./model/mySQLindex.js");
 
 // console.log(__dirname);
 // any middlewares?
@@ -17,7 +19,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // =================== GET REQUESTS
 
-app.get("/getPlaylist/:playlist_Id", PlaylistHandler.getPlaylist);
+app.get("/getPlaylist/:playlist_Id", async (req, res) => {
+  await model.playlist.getPlaylist(req.params.playlist_Id, (data) => {
+    console.log("hello");
+    res.send(data);
+  });
+});
 
 app.get("/getSong/:song_id", SongHandler.getSongById);
 
@@ -45,6 +52,6 @@ app.delete("/deleteASong", SongHandler.deleteASong);
 
 app.delete("/deleteSongFromPlaylist", PlaylistHandler.deleteSongFromPlaylist);
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log(`listening on port http://localhost:${port}`);
 });
