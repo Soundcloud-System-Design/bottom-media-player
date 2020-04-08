@@ -1,4 +1,4 @@
-var db = require("../database");
+var db = require("../database/postgres/dbconnect.js");
 
 module.exports = {
   songs: {
@@ -54,7 +54,7 @@ module.exports = {
     getSongById: (songId, callback) => {
       const query = "";
       // work in progress ================================<
-    }
+    },
     changeSongInfo: (songInfo, songId, callback) => {
       const { musicTitle, artistName, albumCover, musicUrl } = songInfo;
       const queryString = `UPDATE songList SET music_title='${musicTitle}', artist_name='${artistName}', album_cover='${albumCover}', music_url='${musicUrl}' WHERE id=${songId}`;
@@ -64,7 +64,7 @@ module.exports = {
         }
         callback(results);
       });
-    }
+    },
   },
 
   playlist: {
@@ -80,9 +80,9 @@ module.exports = {
     },
     getPlaylist: (id, callback) => {
       // var queryString = `SELECT * FROM songList LEFT JOIN playlist_songs ON songList.id = playlist_songs.song_id WHERE playlist_songs.playlist_id = ${id}`;
-      var queryString = `SELECT * FROM songs LEFT JOIN playlist_songs ON songs.id = playlist_songs.song_id WHERE playlist_songs.playlist_id = ${id}`;
+      var queryString = `SELECT songs.music_title, songs.music_url, songs.cover_art, artists.artist_name FROM playlist_songs JOIN songs ON playlist_songs.song_id = songs.id JOIN artists ON artists.id = songs.artist_id WHERE playlist_songs.playlist_id = ${id} LIMIT 25;`;
       // randomize the sqlChart.
-      return db.query(queryString, function(err, results) {
+      return db.query(queryString, function (err, results) {
         if (err) {
           throw err;
         }
@@ -109,6 +109,6 @@ module.exports = {
         console.log(results);
         callback(results);
       });
-    }
-  }
+    },
+  },
 };

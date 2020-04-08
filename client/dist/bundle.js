@@ -2613,7 +2613,7 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
       playable: false,
       // set true/false based on loading of src
       playList: [],
-      playlistId: 1,
+      playlistId: 450001,
       paused: true,
       // change to false if i want to autoplay on load
       trackNumber: 0,
@@ -2642,10 +2642,8 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
         url: "/getPlaylist/".concat(this.state.playlistId),
         success: function success(data) {
           _this2.setState({
-            playList: data,
-            selected: data[0].music_url
-          }, function () {
-            console.log(_this2.state.playList);
+            playList: data.rows,
+            selected: data.rows[0].music_url
           });
         }
       });
@@ -2899,7 +2897,7 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
         id: "album-cover"
       }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement("img", {
         id: "queen-image",
-        src: this.state.playList.length ? this.state.playList[this.state.trackNumber].album_cover : "",
+        src: this.state.playList.length ? this.state.playList[this.state.trackNumber].cover_art : "",
         width: "27",
         height: "27"
       })), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_20__styled_components_start_time_js__["a" /* default */], {
