@@ -2,9 +2,9 @@ config:
   target: "http://localhost:4000"
   phases:
     - duration: 10
-      arrivalRate: 850
+      arrivalRate: 10
 scenarios:
   - flow:
       - get:
-          url: "/getPlaylist/450000"
+          url: "/getPlaylist/4"
           # url: "/"

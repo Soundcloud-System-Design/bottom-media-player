@@ -1,27 +1,48 @@
-const mongoose = require("mongoose");
+const MongoClient = require("mongodb").MongoClient;
+// const mongoose = require("mongoose");
 
-const server = "localhost";
-const database = "sdc-mongo";
+// const server = "localhost";
+// const database = "sdc-mongo";
 
-const mongo = `mongodb://${server}/${database}`;
-mongoose.connect(mongo, { useNewUrlParser: true, useUnifiedTopology: true });
+const getPlaylist = (playlistId, callback) => {
+  return new Promise((resolve, reject) => {
+    MongoClient.connect("mongodb://localhost:27017/sdc-mongo", (err, db) => {
+      if (err) {
+        console.error("error no connection");
+        reject(err);
+      }
 
-const dbConnect = mongoose.connection;
+      let query = { id: Number(playlistId) };
 
-dbConnect.on("error", console.error.bind(console, "MongoDB connection error"));
+      const collection = db.collection("playlists");
+      collection.find(query).toArray((err, item) => {
+        if (err) {
+          console.error("error at mongoConnect", err);
+        }
+        resolve(item);
+      });
+    });
+  });
+};
 
-const playlistSchema = new mongoose.Schema({
-  playlist_name: String,
-  allSongsWithInfos: [
-    {
-      song_title: String,
-      song_url: String,
-      artist_name: String,
-      cover_art: String,
-    },
-  ],
-});
+module.exports = { getPlaylist };
 
-const Playlist = mongoose.model("Playlist", playlistSchema);
+// mongoose.connect(mongo, { useNewUrlParser: true, useUnifiedTopology: true });
 
-module.exports = Playlist;
+// const dbConnect = mongoose.connection;
+
+// dbConnect.on("error", console.error.bind(console, "MongoDB connection error"));
+
+// const playlistSchema = new mongoose.Schema({
+//   playlist_name: String,
+//   allSongsWithInfos: [
+//     {
+//       song_title: String,
+//       song_url: String,
+//       artist_name: String,
+//       cover_art: String,
+//     },
+//   ],
+// });
+
+// const Playlist = mongoose.model("playlists", playlistSchema);

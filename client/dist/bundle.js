@@ -3498,7 +3498,8 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
       playable: false,
       // set true/false based on loading of src
       playList: [],
-      playlistId: 450001,
+      playlistId: 450010,
+      // playlistId: 1,
       paused: true,
       // change to false if i want to autoplay on load
       trackNumber: 0,
@@ -3523,6 +3524,13 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       __WEBPACK_IMPORTED_MODULE_24_axios___default.a.get("/getPlaylist/".concat(this.state.playlistId)).then(function (results) {
+        // return new Promise((resolve, reject) => {
+        //   console.log(results.data[0].songs.allSongsWithInfos[0]);
+        //   this.setState({
+        //     playList: results.data[0].songs,
+        //     selected: results.data[0].songs.allSongsWithInfos[0].song_url,
+        //   });
+        // });
         _this2.setState({
           playList: results.data.rows,
           selected: results.data.rows[0].music_url

@@ -10,6 +10,7 @@
     "build": "webpack --config webpack.config.js --watch",
     "test": "jest",
     "start": "nodemon server/app.js",
+    "mstart": "nodemon server/mongoapp.js",
     "save": "mysql -u root -p music < server/database/seed.sql",
     "data-creation": "mysql -u root -p < server/database/music_schema.sql && node ./server/database/seed.js"
   },
@@ -44,6 +45,8 @@
     "faker": "^4.1.0",
     "hosted-git-info": "^3.0.4",
     "jquery": "^3.4.1",
+    "mongodb": "^2.2.33",
+    "mongoose": "^5.9.7",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.2",
     "pg": "^8.0.0",
