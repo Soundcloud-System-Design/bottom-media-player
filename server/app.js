@@ -8,14 +8,9 @@ const path = require("path");
 const { SongHandler, PlaylistHandler } = require("./controller/index");
 const model = require("./model/mySQLindex.js");
 
-// console.log(__dirname);
-// any middlewares?
-// app.use(require("body-parser").json()); // wow.
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../client/dist")));
 app.use(express.urlencoded({ extended: true }));
-
-// seting up s3 credentials
 
 // =================== GET REQUESTS
 
