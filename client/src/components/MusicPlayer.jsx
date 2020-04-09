@@ -45,7 +45,6 @@ class MusicPlayerOnFooter extends React.Component {
   // create refs for audio/progress/start-time/end-times/vol-control
   componentDidMount() {
     axios.get(`/getPlaylist/${this.state.playlistId}`).then((results) => {
-      console.log(results.data.rows);
       this.setState({
         playList: results.data.rows,
         selected: results.data.rows[0].music_url,

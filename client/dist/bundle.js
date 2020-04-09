@@ -3523,8 +3523,6 @@ var MusicPlayerOnFooter = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       __WEBPACK_IMPORTED_MODULE_24_axios___default.a.get("/getPlaylist/".concat(this.state.playlistId)).then(function (results) {
-        console.log(results.data.rows);
-
         _this2.setState({
           playList: results.data.rows,
           selected: results.data.rows[0].music_url

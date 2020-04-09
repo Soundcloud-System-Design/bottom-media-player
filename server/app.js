@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 // =================== GET REQUESTS
 
 app.get("/getPlaylist/:playlist_Id", async (req, res) => {
+  console.log(req.params);
   await model.playlist.getPlaylist(req.params.playlist_Id, (data) => {
     console.log("hello");
     res.send(data);
