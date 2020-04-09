@@ -3,8 +3,9 @@ var db = require("../database/postgres/dbconnect.js");
 module.exports = {
   songs: {
     createSong: (songData, callback) => {
-      const { musicTitle, artistName, albumCover, musicUrl } = songData;
-      const queryString = `INSERT INTO songList (music_title, artist_name, album_cover, music_url) VALUES ('${musicTitle}', '${artistName}', '${albumCover}', '${musicUrl}')`;
+      const { musicTitle, musicUrl, coverArt } = songData;
+      const artistId = songData.artistId;
+      const queryString = `INSERT INTO songs (music_title, music_url, cover_art, artist_id) VALUES ('${musicTitle}', '${musicUrl}', '${coverArt}', '${artistId}')`;
       return db.query(queryString, (err, results) => {
         if (err) {
           throw err;
