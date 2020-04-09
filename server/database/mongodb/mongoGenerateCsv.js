@@ -106,5 +106,3 @@ const writeOneMillionPlaylists = (writer, encoding, callback) => {
 writeOneMillionPlaylists(writePlaylists, "utf-8", () => {
   writePlaylists.end();
 });
-
-process.uptime();

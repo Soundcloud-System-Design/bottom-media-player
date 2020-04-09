@@ -6,17 +6,26 @@ var cors = require("cors");
 const db = require("./database/postgres/dbconnect.js");
 const path = require("path");
 const { SongHandler, PlaylistHandler } = require("./controller/index");
-const model = require("./model/mySQLindex.js");
+const model = require("./database/mongodb/mongoConnection.js");
 
+// console.log(__dirname);
+// any middlewares?
+// app.use(require("body-parser").json()); // wow.
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../client/dist")));
 app.use(express.urlencoded({ extended: true }));
 
+// seting up s3 credentials
+
 // =================== GET REQUESTS
 
 app.get("/getPlaylist/:playlist_Id", async (req, res) => {
-  await model.playlist.getPlaylist(req.params.playlist_Id, (data) => {
-    res.send(data);
+  let playlistId = req.params.playlist_Id;
+  // await model.getPlaylist(playlistId, (result) => {
+  //   res.send(result);
+  // });
+  await model.getPlaylist(playlistId).then((result) => {
+    res.send(result);
   });
 });
 

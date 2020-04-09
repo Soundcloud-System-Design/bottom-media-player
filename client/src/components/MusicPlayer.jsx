@@ -27,7 +27,8 @@ class MusicPlayerOnFooter extends React.Component {
       selected: "", // currently playing
       playable: false, // set true/false based on loading of src
       playList: [],
-      playlistId: 450001,
+      playlistId: 450010,
+      // playlistId: 1,
       paused: true, // change to false if i want to autoplay on load
       trackNumber: 0,
       displayList: false,
@@ -45,7 +46,13 @@ class MusicPlayerOnFooter extends React.Component {
   // create refs for audio/progress/start-time/end-times/vol-control
   componentDidMount() {
     axios.get(`/getPlaylist/${this.state.playlistId}`).then((results) => {
-      console.log(results.data.rows);
+      // return new Promise((resolve, reject) => {
+      //   console.log(results.data[0].songs.allSongsWithInfos[0]);
+      //   this.setState({
+      //     playList: results.data[0].songs,
+      //     selected: results.data[0].songs.allSongsWithInfos[0].song_url,
+      //   });
+      // });
       this.setState({
         playList: results.data.rows,
         selected: results.data.rows[0].music_url,
