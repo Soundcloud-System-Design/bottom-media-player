@@ -90,7 +90,6 @@ module.exports = {
           }
         });
       });
-      // var queryString = `SELECT * FROM songList LEFT JOIN playlist_songs ON songList.id = playlist_songs.song_id WHERE playlist_songs.playlist_id = ${id}`;
     },
     changePlaylistName: (playlistInfo, callback) => {
       const { playlistId, playlistName } = playlistInfo;

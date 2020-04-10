@@ -9,7 +9,7 @@ let writeSongs = fs.createWriteStream(
   path.join(__dirname, "./generatedSongs.csv")
 );
 
-writeSongs.write("musicTitle, musicUrl, coverArt, artistId\n", "utf8");
+writeSongs.write("musicTitle, musicUrl, coverArt, artistName\n", "utf8");
 
 let musicUrlLists = [
   "https://project-music.s3-us-west-1.amazonaws.com/music+folder/29.)+The+Leaning+Tower+of+Pepperoni+Pizza+Pie.mp3",
@@ -66,7 +66,7 @@ let musicUrlLists = [
 ];
 
 const writeTenMillionSongs = (writer, encoding, callback) => {
-  let i = 1000;
+  let i = 1000000;
   let songId = 0;
   // let i = 1000;
   write();
@@ -82,8 +82,8 @@ const writeTenMillionSongs = (writer, encoding, callback) => {
       const musicUrl = musicUrlLists[songId];
       const musicCoverArt = fake.image.image();
       const musicTitle = fake.lorem.words();
-      const artistId = fake.random.number({ min: 1, max: 5000000 });
-      const data = `${musicTitle}, ${musicUrl}, ${musicCoverArt}, ${artistId}\n`;
+      const artistName = fake.lorem.words();
+      const data = `${musicTitle}, ${musicUrl}, ${musicCoverArt}, ${artistName}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {
@@ -181,7 +181,7 @@ writeSongsAndArtists.write("songId, artistId\n", "utf-8");
 
 const writeSongsArtistsRelations = (writer, encoding, callback) => {
   // let i = 1000000; // 10 mill records
-  let i = 5000000;
+  let i = 500000;
   write();
   function write() {
     let ok = true;
