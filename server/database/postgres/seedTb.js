@@ -13,7 +13,7 @@ pool
   .then(() => {
     console.log("songs now");
     return pool.query(
-      "COPY songs (music_title, music_url, cover_art, primary_artist) FROM '/Users/andrea/Desktop/bottom-media-player/server/database/postgres/generatedSongs.csv' DELIMITER ',' CSV HEADER"
+      "COPY songs (music_title, music_url, cover_art, artist_id) FROM '/Users/andrea/Desktop/bottom-media-player/server/database/postgres/generatedSongs.csv' DELIMITER ',' CSV HEADER"
     );
   })
   .then(() => {
