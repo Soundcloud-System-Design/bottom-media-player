@@ -2,9 +2,16 @@ config:
   target: "http://localhost:4000"
   phases:
     - duration: 10
-      arrivalRate: 10
+      arrivalRate: 100
 scenarios:
   - flow:
       - get:
-          url: "/getPlaylist/4"
+          url: "/getPlaylist/450017"
           # url: "/"
+      - post:
+          url: "/addSong"
+          form:
+            musicTitle: "testtest"
+            musicUrl: "url test"
+            coverArt: "cover art test"
+            artistId: 2

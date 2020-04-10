@@ -3,8 +3,9 @@ var db = require("../database/postgres/dbconnect.js");
 module.exports = {
   songs: {
     createSong: (songData, callback) => {
-      const { musicTitle, artistName, albumCover, musicUrl } = songData;
-      const queryString = `INSERT INTO songList (music_title, artist_name, album_cover, music_url) VALUES ('${musicTitle}', '${artistName}', '${albumCover}', '${musicUrl}')`;
+      const { musicTitle, musicUrl, coverArt } = songData;
+      const artistId = songData.artistId;
+      const queryString = `INSERT INTO songs (music_title, music_url, cover_art, artist_id) VALUES ('${musicTitle}', '${musicUrl}', '${coverArt}', '${artistId}')`;
       return db.query(queryString, (err, results) => {
         if (err) {
           throw err;
@@ -73,33 +74,21 @@ module.exports = {
       const queryString = `INSERT INTO playlists (playlist_title) VALUES ('${playlistTitle}')`;
       return db.query(queryString, (err, results) => {
         if (err) {
-          throw err;
+          reject(err);
         }
         callback(results);
       });
     },
-    getPlaylist: (id, callback) => {
-// <<<<<<< crud-operation
+    getPlaylist: (id) => {
       return new Promise((resolve, reject) => {
         var queryString = `SELECT songs.music_title, songs.music_url, songs.cover_art, artists.artist_name FROM playlist_songs JOIN songs ON playlist_songs.song_id = songs.id JOIN artists ON artists.id = songs.artist_id WHERE playlist_songs.playlist_id = ${id} LIMIT 25;`;
-        // randomize the sqlChart.
         db.query(queryString, function (err, results) {
           if (err) {
-            throw err;
+            reject(err);
+          } else {
+            resolve(results);
           }
-          callback(results);
         });
-// =======
-//       // var queryString = `SELECT * FROM songList LEFT JOIN playlist_songs ON songList.id = playlist_songs.song_id WHERE playlist_songs.playlist_id = ${id}`;
-//       // var queryString = `SELECT songs.music_title, songs.music_url, songs.cover_art, songs.primary_name FROM playlist_songs JOIN songs ON playlist_songs.song_id = songs.id JOIN artists ON artists.id = songs.artist_id WHERE playlist_songs.playlist_id = ${id} LIMIT 10;`;
-//       var queryString = `SELECT songs.music_title, songs.music_url, songs.cover_art, songs.primary_artist FROM songs, playlist_songs WHERE playlist_songs.playlist_id = ${id} AND playlist_songs.song_id = songs.id LIMIT 50`;
-//       // randomize the sqlChart.
-//       return db.query(queryString, function (err, results) {
-//         if (err) {
-//           throw err;
-//         }
-//         callback(results);
-// >>>>>>> master
       });
     },
     changePlaylistName: (playlistInfo, callback) => {
