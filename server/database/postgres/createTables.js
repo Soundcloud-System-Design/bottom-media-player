@@ -7,7 +7,7 @@ pool.query(
       throw err;
     }
     pool.query(
-      "CREATE TABLE songs (id serial primary key, music_title varchar(250), music_url varchar(250), cover_art varchar(250), primary_artist varchar(250))",
+      "CREATE TABLE songs (id serial primary key, music_title varchar(250), music_url varchar(250), cover_art varchar(250), artist_id integer references artists(id))",
       (err, res) => {
         if (err) {
           throw err;
@@ -40,3 +40,4 @@ pool.query(
     );
   }
 );
+// create tables
